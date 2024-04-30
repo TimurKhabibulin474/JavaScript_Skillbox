@@ -1,0 +1,18 @@
+.container {
+    max-width: 70%;
+    font-size: 25px;
+}
+.btn {
+    background-color: blue;
+    color: #fff;
+    padding: 20px 40px;
+    font-size: inherit;
+    cursor: pointer;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.btn-show {
+    display: block;
+}
