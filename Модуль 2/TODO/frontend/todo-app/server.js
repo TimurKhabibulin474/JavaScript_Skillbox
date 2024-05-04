@@ -1,10 +1,12 @@
+const BASE_URL = "http://localhost:3000/api/todos";
+
 export async function getTodoList(owner) {
-    const response = await fetch(`http://localhost:3000/api/todos?owner=${owner}`);
+    const response = await fetch(`${BASE_URL}?owner=${owner}`);
     return await response.json();
 }
 
 export async function createTodoItem({ owner, name }) {
-    const response = await fetch('http://localhost:3000/api/todos', {
+    const response = await fetch(BASE_URL, {
         method: 'POST',
         body: JSON.stringify({
             name,
@@ -19,7 +21,7 @@ export async function createTodoItem({ owner, name }) {
 
 export function switchTodoItemDone({todoItem}) {
     todoItem.done = !todoItem.done;
-    fetch(`http://localhost:3000/api/todos/${todoItem.id}`, {
+    fetch(`${BASE_URL}/${todoItem.id}`, {
         method: 'PATCH',
         body: JSON.stringify({done: todoItem.done}),
         headers: {
@@ -31,7 +33,7 @@ export function switchTodoItemDone({todoItem}) {
 export function deleteTodoItem({element, todoItem}) {
     if (!confirm('Вы уверены?')) return;
     element.remove();
-    fetch(`http://localhost:3000/api/todos/${todoItem.id}`, {
+    fetch(`${BASE_URL}/${todoItem.id}`, {
         method: 'DELETE',
     })
 }
