@@ -18,8 +18,7 @@ function createTodoItemForm() {
     button.textContent = 'Добавить дело';
 
     buttonWrapper.append(button);
-    form.append(input);
-    form.append(buttonWrapper);
+    form.append(input, buttonWrapper);
 
     return {
         form,
@@ -58,8 +57,7 @@ function createTodoItemElement(todoItem, {onDone, onDelete}) {
     deleteButton.addEventListener('click', () => {
         onDelete({todoItem, element: item});
     });
-    buttonGroup.append(doneButton);
-    buttonGroup.append(deleteButton);
+    buttonGroup.append(doneButton, deleteButton);
     item.append(buttonGroup);
     return item;
 }
@@ -77,9 +75,7 @@ export async function createTodoApp(container, {
     const todoList = createTodoList();
     const handlers = {onDone: onDoneClick, onDelete: onDeleteClick};
 
-    container.append(todoAppTitle);
-    container.append(todoItemForm.form);
-    container.append(todoList);
+    container.append(todoAppTitle, todoItemForm.form, todoList);
 
     todoItemList.forEach(todoItem => {
         const todoItemElement = createTodoItemElement(todoItem, handlers);
