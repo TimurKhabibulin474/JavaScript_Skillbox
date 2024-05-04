@@ -3,18 +3,11 @@
         const openButton = document.querySelector('.js-open-dropdown');
         const dropdownMenu = document.querySelector(openButton.dataset.target);
 
-        openButton.addEventListener('click', event => {
-            dropdownMenu.classList.toggle('dropdown-menu__visible');
-            event._isClickOnButton = true;
-        });
-
-        dropdownMenu.addEventListener('click', event => {
-            event._isClickOnDropdownMenu = true;
-        });
-
         document.addEventListener('click', event => {
-            if(event._isClickOnDropdownMenu || event._isClickOnButton) return;
-            dropdownMenu.classList.remove('dropdown-menu__visible');
+            if(event.target.classList.contains("js-open-dropdown"))
+                dropdownMenu.classList.toggle('dropdown-menu__visible');
+            else if(!event.target.classList.contains("dropdown-menu") && !event.target.classList.contains("dropdown-item"))
+                dropdownMenu.classList.remove('dropdown-menu__visible');
         });
     });
 })();
