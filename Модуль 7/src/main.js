@@ -23,10 +23,9 @@ button.textContent = "Оплатить";
 button.disabled = true;
 const correctInputs = new Set();
 
-inputCardNumber.oninput = e => {e.target.classList.remove("input-error")};
-inputExpirationDate.oninput = e => {e.target.classList.remove("input-error")};
-inputSecurityCode.oninput = e => {e.target.classList.remove("input-error")};
-inputEmail.oninput = e => {e.target.classList.remove("input-error")};
+[inputCardNumber, inputExpirationDate, inputSecurityCode, inputEmail].forEach(el => {
+    el.oninput = e => e.target.classList.remove("input-error");
+})
 
 const maskCardNumber = IMask(inputCardNumber, {
     mask: '0000 0000 0000 0000 00',
