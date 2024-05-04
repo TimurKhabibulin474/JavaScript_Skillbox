@@ -1,5 +1,5 @@
 (() => {
-    const VALID_CHARACTERS = /[а-яА-ЯёЁ\s-]/;
+    const VALID_CHARACTERS = /[а-яА-ЯёЁ\s-]/g;
     const CONTROL_KEYS = ['Backspace', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Delete'];
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('.js-form');
@@ -20,7 +20,7 @@
 
         inputs.forEach(input => {
             input.addEventListener('keydown', event => {
-                if (!VALID_CHARACTERS.test(event.key) && !CONTROL_KEYS.includes(event.key)) {
+                if (!(VALID_CHARACTERS.test(event.key) || CONTROL_KEYS.includes(event.key))) {
                     event.preventDefault();
                 }
             })
@@ -31,12 +31,7 @@
         });
 
         function correctionValue(value) {
-            let valid_value = '';
-            for(const char of value.trim().toLowerCase()){
-                if(char.match(VALID_CHARACTERS)){
-                    valid_value += char;
-                }
-            }
+            let valid_value = value.trim().toLowerCase().replaceAll(/[^А-яё]/g, '');
             valid_value = valid_value.replace(/^[-\s]+|[-\s]+$/g, '').replace(/[-\s]+/g, match => match.includes('-') ? '-' : ' ');
             return valid_value.charAt(0).toUpperCase() + valid_value.slice(1);
         }
