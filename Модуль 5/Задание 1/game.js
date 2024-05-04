@@ -4,6 +4,7 @@ const form = document.getElementById("form");
 const select = document.getElementById("select");
 const buttonStart = document.querySelector(".form_btn");
 const cardContainer = document.getElementById("game");
+const sizes = ["2", "4", "6", "8", "10"];
 
 form.addEventListener("submit", e => {
     e.preventDefault();
@@ -24,47 +25,34 @@ function startGame(size){
         new Card(cardContainer, cardNumber, function(card) {
             if(card.success || card.open || !isCanPick) return;
             card.open = true;
-            if(openCard){
-                if(openCard.cardNumber === card.cardNumber){
-                    openCard.success = true;
-                    card.success = true;
-                    openCard = null;
-                    currentScore++;
-                    if(currentScore === countPairs) buttonStart.disabled = false;
-                } else {
-                    isCanPick = false;
-                    setTimeout(() => {
-                        openCard.open = false;
-                        card.open = false;
-                        openCard = null;
-                        isCanPick = true;
-                    }, 500);
-                }
+            if(!openCard){
+                openCard = card;
                 return;
             }
-            openCard = card;
+            if(openCard.cardNumber === card.cardNumber){
+                openCard.success = true;
+                card.success = true;
+                openCard = null;
+                currentScore++;
+                if(currentScore === countPairs) buttonStart.disabled = false;
+            } else {
+                isCanPick = false;
+                setTimeout(() => {
+                    openCard.open = false;
+                    card.open = false;
+                    openCard = null;
+                    isCanPick = true;
+                }, 500);
+            }
         });
     }
 }
 
-function setSizeContainer(size) {
-    switch(size){
-        case("2"):
-            cardContainer.classList.add("game-2");
-            break;
-        case("4"):
-            cardContainer.classList.add("game-4");
-            break;
-        case("6"):
-            cardContainer.classList.add("game-6");
-            break;
-        case("8"):
-            cardContainer.classList.add("game-8");
-            break;
-        case("10"):
-            cardContainer.classList.add("game-10");
-            break;
+function setSizeContainer(size){
+    if (!sizes.includes(size)) {
+        return cardContainer.classList.add("game-10");
     }
+    cardContainer.classList.add(`game-${size}`);
 }
 
 function getRandomArr(maxCard) {
