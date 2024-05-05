@@ -1,0 +1,62 @@
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+input {
+    padding: 5px 10px;
+}
+
+.input-error {
+    background-color: rgb(255, 162, 162);
+}
+
+.wrapper-number {
+    position: relative;
+}
+
+.input-number {
+    margin-bottom: 20px;
+    width: calc(100% - 23.2px);
+}
+
+.image-card-name {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 18px;
+}
+
+.wrapper-date-code {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-date,
+.input-code {
+    min-width: 60px;
+    width: 20%;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: blue;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:disabled,
+.btn[disabled]{
+  background-color: #cccccc;
+}
