@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра "Пары"</title>
+    <link rel="stylesheet" href="./src/style.css">
+    <script type="module" src="./src/game.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <form class="form" id="form">
+                <p class="form_text">Выберите размер поля</p>
+                <select name="size" id="select" class="form_select">
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="submit" class="form_btn">Начать игру</button>
+            </form>
+        </div>
+        <div class="game_wrapper">
+            <div class="game" id="game">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
