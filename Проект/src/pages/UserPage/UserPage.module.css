@@ -1,0 +1,24 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.btn-wrapper {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-img {
+    height: 400px;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,21 @@
+.paginator-button {
+    padding: 5px;
+    border-radius: 2px;
+    border: 2px solid rgb(145, 0, 0);
+    color: rgb(145, 0, 0);
+    transition: border-color 0.2s ease-in-out;
+    font-weight: 600;
+}
+
+.paginator-button.active {
+    background-color: rgb(230, 190, 60);
+    cursor: default;
+}
+
+.paginator-button.active:hover {
+    border-color: rgb(145, 0, 0);
+}
+
+.paginator-button:not(.active):hover {
+    border-color: rgb(230, 190, 60);
+}

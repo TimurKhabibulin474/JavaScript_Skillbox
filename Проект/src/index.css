@@ -1,0 +1,48 @@
+body {
+    padding: 20px;
+    font-family:'Helvetica', sans-serif;
+}
+
+#root {
+    width: 100%;
+}
+
+body * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+textarea, select {
+    outline: none;
+    border: none;
+}
+
+input {
+    border: none;
+    padding: 1px 2px;
+    outline-offset: 1px;
+    outline: 2px solid rgb(145, 0, 0);
+    transition: outline-color 0.2s ease-in-out;
+}
+
+input:hover,
+input:focus {
+    outline-color: rgb(230, 190, 60);
+}
+
+button {
+    user-select: none;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 20px;
+    border-radius: 2px;
+    border: 2px solid rgb(145, 0, 0);
+    color: rgb(145, 0, 0);
+    transition: border-color 0.2s ease-in-out;
+}
+
+button:hover {
+    border-color: rgb(230, 190, 60);
+}

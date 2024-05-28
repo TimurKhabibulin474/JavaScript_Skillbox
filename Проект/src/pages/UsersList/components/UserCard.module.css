@@ -1,0 +1,31 @@
+.card {
+    width: 30%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-img {
+    font-size: 0;
+    max-height: 128px;
+}
+
+.card-text {
+    margin: auto;
+    padding: 0 10px;
+}
+
+.card-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    outline-offset: 1px;
+    outline: 2px solid rgb(145, 0, 0);
+    transition: outline-color 0.2s ease-in-out;
+}
+
+.card-link:hover {
+    outline-color: rgb(230, 190, 60);
+}

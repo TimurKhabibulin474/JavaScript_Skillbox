@@ -1,0 +1,14 @@
+.select {
+    font-size: 16px;
+    cursor: pointer;
+    width: 40%;
+    padding: 1px 2px;
+    outline-offset: 1px;
+    outline: 2px solid rgb(145, 0, 0);
+    transition: outline-color 0.2s ease-in-out;
+}
+
+.select:hover,
+.select:focus {
+    outline-color: rgb(230, 190, 60);
+}
