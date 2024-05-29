@@ -58,7 +58,7 @@ const Modal = React.memo((props) => {
                     value={changeUser.avatar}
                     onChange={(e) => updateUser("avatar", e.target.value)}
                 />
-                <button type="submit" className={styles.btn}>Сохранить изменения</button>
+                <button type="submit">Сохранить изменения</button>
             </form>
         </div>
     );

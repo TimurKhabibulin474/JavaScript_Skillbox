@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToken } from "../../store";
 import { setUserLocalStorage } from "../../helpers/utils";
-import { CONFIG } from "../../helpers/constants";
+import { INPUTS_CONF } from "../../helpers/constants";
 
 const Registration = () => {
     const [user, setUser] = useState({
@@ -46,7 +46,7 @@ const Registration = () => {
         <div className={styles.container}>
             <h2 className={styles.title}>Регистрация</h2>
             <form className={styles.form} onSubmit={formSubmit}>
-                {CONFIG.map((item) => (
+                {INPUTS_CONF.map((item) => (
                     <input
                         key={item.field}
                         type="text"

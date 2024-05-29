@@ -9,7 +9,7 @@ export const sortingOptions = [
     },
 ];
 
-export const CONFIG = [
+export const INPUTS_CONF = [
     { placeholder: "Имя", field: "firstname", },
     { placeholder: "Фамилия", field: "lastname", },
     { placeholder: "Ссылка на аватар", field: "avatar", },
