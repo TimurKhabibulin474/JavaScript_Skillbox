@@ -5,6 +5,7 @@ import UsersList from "./pages/UsersList/UsersList";
 import UserPage from "./pages/UserPage/UserPage";
 import Registration from "./pages/Registration/Registration";
 import { addToken } from "./store";
+import { getUserLocalStorage } from "./helpers/utils";
 
 const privateRoutes = {
   routes: [
@@ -13,25 +14,27 @@ const privateRoutes = {
   redirectAddress: "/reg",
 };
 
-const publicRoutes = {
+const publicRoutes = (url) => ({
   routes: [
     { page: <UsersList />, path: "/" },
     { page: <UserPage />, path: "/user/:id/" },
   ],
-  redirectAddress: "/",
-};
+  redirectAddress: url,
+});
 
 const App = () => {
   const token = useSelector((state) => state.token);
+  const url = useSelector((state) => state.url);
   const dispatch = useDispatch();
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = getUserLocalStorage();
     if (user) dispatch(addToken(user.token));
   }, [])
+
   const currentRoutes = useMemo(() => {
     if (!token) return privateRoutes;
-    return publicRoutes;
-  }, [token]);
+    return publicRoutes(url);
+  }, [token, url]);
 
   return (
     <Routes>
@@ -42,9 +45,6 @@ const App = () => {
           element={route.page}
         />
       ))}
-      {/* <Route path="/" element={<UsersList />} />
-      <Route path="/user/:id/" element={<UserPage />} />
-      <Route path="/reg" element={<Registration />} />*/}
       <Route
         path="*"
         replace

@@ -4,14 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToken } from "../../store";
-
-const CONFIG = [
-    { placeholder: "Имя", field: "firstname", },
-    { placeholder: "Фамилия", field: "lastname", },
-    { placeholder: "Ссылка на аватар", field: "avatar", },
-    { placeholder: "Email", field: "email", },
-    { placeholder: "Пароль", field: "password", },
-];
+import { setUserLocalStorage } from "../../helpers/utils";
+import { CONFIG } from "../../helpers/constants";
 
 const Registration = () => {
     const [user, setUser] = useState({
@@ -37,11 +31,10 @@ const Registration = () => {
             })
             .then((response) => {
                 if (response.status === 200) {
-                    localStorage.setItem("user", JSON.stringify({
-                        ...user,
+                    setUserLocalStorage({
                         id: response.data.id,
                         token: response.data.token,
-                    }))
+                    })
                     dispatch(addToken(response.data.token));
                     navigate("/");
                 }
@@ -67,7 +60,7 @@ const Registration = () => {
                         })}
                     />
                 ))}
-                <button className={styles.btn}>Зарегистрироваться</button>
+                <button type="submit" className={styles.btn}>Зарегистрироваться</button>
             </form>
         </div>
     );

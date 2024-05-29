@@ -5,7 +5,7 @@ import PaginatorButton from "./PaginatorButton/PaginatorButton";
 const Paginator = (props) => {
     const { activePage, updatePage, pagesCount } = props;
 
-    const pagesArray = useMemo(() => 
+    const pagesArray = useMemo(() =>
         Array.from({ length: pagesCount }, (_, i) => i + 1), [pagesCount]
     );
 

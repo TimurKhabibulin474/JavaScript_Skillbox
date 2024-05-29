@@ -1,66 +1,58 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import UserCard from "./components/UserCard";
-import UserSelect from "./components/UserSelect";
+import UserCard from "../../components/UserCard/UserCard";
+import UserSelect from "../../components/UserSelect/UserSelect";
 import Paginator from "../../components/Paginator/Paginator";
 import styles from "./UsersList.module.css";
-import defaultImg from "../../assets/default.jpg";
+import { imageError, getUserLocalStorage } from "../../helpers/utils";
+import { sortingOptions } from "../../helpers/constants";
 const PAGE_SIZE = 9;
 
-const sortingOptions = [
-    {
-        name: "По имени",
-        value: "firstName",
-    },
-    {
-        name: "По фамилии",
-        value: "lastName",
-    },
-];
-
-const imageError = (e) => {
-    e.target.onerror = null;
-    e.target.src = defaultImg;
-}
-
 const UsersList = () => {
-    const currentUser = JSON.parse(localStorage.getItem("user"));
-
+    const currentUserId = (getUserLocalStorage()).id;
+    const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
-
     const [filters, setFilters] = useState({
         searching: "",
         page: 1,
         sorting: "",
     });
 
+    function updateUsers(data) {
+        setUsers(
+            data
+                .filter(userData => currentUserId !== userData.id)
+                .map((userData) => ({
+                    ...userData,
+                    firstName: userData.first_name,
+                    lastName: userData.last_name,
+                }))
+        );
+    }
+
     function updateFilters(name, value) {
         setFilters({ ...filters, [name]: value });
     }
 
-    useEffect(() => {
+    function getData(path, action) {
         axios
-            .get(`https://reqres.in/api/users?per_page=${Number.MAX_SAFE_INTEGER}`)
+            .get(path)
             .then((res) => res.data)
-            .then(({ data }) => {
-                setUsers(
-                    data.map((userData) => ({
-                        ...userData,
-                        firstName: userData.first_name,
-                        lastName: userData.last_name,
-                    }))
-                )
-            })
-            .catch((err) => setUsers([]));
+            .then(({ data }) => action(data))
+            .catch((err) => console.error(err));
+    }
+
+    useEffect(() => {
+        getData(`https://reqres.in/api/users?per_page=${Number.MAX_SAFE_INTEGER}`, updateUsers);
+        getData(`https://reqres.in/api/users/${currentUserId}`, setCurrentUser);
     }, []);
 
     const filteredSortedUsers = useMemo(() => {
         if (!users.length) return [];
         const { searching, sorting } = filters;
-        const result = users.filter(({ firstName, lastName, id }) =>
-            `${firstName} ${lastName}`.toLowerCase().includes(searching.toLowerCase()) &&
-            id !== currentUser.id
+        const result = users.filter(({ firstName, lastName }) =>
+            `${firstName} ${lastName}`.toLowerCase().includes(searching.toLowerCase())
         );
         if (sorting) {
             result.sort((user1, user2) =>
@@ -75,11 +67,13 @@ const UsersList = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles["user-wrapper"]}>
-                <h3>{currentUser.firstname} {currentUser.lastname}</h3>
-                <img src={currentUser.avatar} alt="avatar" onError={imageError} className={styles["user-avatar"]} />
-                <Link to={`/user/${currentUser.id}`} className={styles["user-link"]}></Link>
-            </div>
+            {currentUser && (
+                <div className={styles["user-wrapper"]}>
+                    <h3>{currentUser.first_name} {currentUser.last_name}</h3>
+                    <img src={currentUser.avatar} alt="avatar" onError={imageError} className={styles["user-avatar"]} />
+                    <Link to={`/user/${currentUser.id}`} className={styles["user-link"]}></Link>
+                </div>
+            )}
             <div className={styles.header}>
                 <input
                     className={styles["header-input"]}
@@ -118,4 +112,5 @@ const UsersList = () => {
         </div>
     );
 };
+
 export default UsersList;

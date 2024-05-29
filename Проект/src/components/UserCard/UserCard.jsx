@@ -1,12 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserCard.module.css";
-import defaultImg from "../../../assets/default.jpg";
-
-const imageError = (e) => {
-    e.target.onerror = null;
-    e.target.src = defaultImg;
-}
+import { imageError } from "../../helpers/utils";
 
 const UserCard = (props) => {
     const { id, email, firstName, lastName, avatar } = props.data;
